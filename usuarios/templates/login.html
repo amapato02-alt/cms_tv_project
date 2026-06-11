@@ -1,0 +1,605 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+<h2>Iniciar sesión</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="username" placeholder="Usuario"><br>
+    <input type="password" name="password" placeholder="Contraseña"><br>
+
+    <button type="submit">Ingresar</button>
+</form>
+
+<a href="{% url 'registro' %}">Registrate</a>
+
+<div style="margin-top:20px; text-align:center;">
+    <p>¿Eres administrador?</p>
+    
+    <a href="/admin/login/" 
+       style="padding:10px 15px; background:#343a40; color:white; border-radius:5px; text-decoration:none;">
+        🔐 Acceder como administrador
+    </a>
+</div>
+
+{% if error %}
+<p style="color:red;">{{ error }}</p>
+{% endif %}
+
+</body>
+</html> -->
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+
+            /* Fondo degradado */
+            background: linear-gradient(135deg, #1900ff, #9e0428);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+
+            width: 320px;
+            text-align: center;
+            color: white;
+
+            box-shadow: 0 0 25px rgba(0,0,0,0.3);
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        input::placeholder {
+            color: #eee;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            background: #6c63ff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #5848e5;
+        }
+
+        a {
+            display: block;
+            margin-top: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .admin-box {
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .admin-btn {
+            display: inline-block;
+            margin-top: 5px;
+            padding: 8px 12px;
+            background: #6b97c2d1;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .error {
+            margin-top: 10px;
+            color: #ffb3b3;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <h2>INICIAR SESION</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="input-group">
+            <input type="text" name="username" placeholder="Usuario">
+        </div>
+
+        <div class="input-group">
+            <input type="password" name="password" placeholder="Contraseña">
+        </div>
+
+        <button type="submit">Ingresar</button>
+    </form>
+
+    <a href="{% url 'registro' %}">Registrate</a>
+
+    <div class="admin-box">
+        <p>¿Eres administrador?</p>
+
+        <a href="/admin/login/" class="admin-btn">
+            Acceder como administrador
+        </a>
+    </div>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+</div>
+
+</body>
+</html> -->
+
+
+
+
+
+
+<!-- {% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+
+            /* Fondo degradado */
+            background: linear-gradient(135deg, #1900ff, #9e0428);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+
+            width: 320px;
+            text-align: center;
+            color: white;
+
+            box-shadow: 0 0 25px rgba(0,0,0,0.3);
+        }
+
+        /* CONTENEDOR DEL LOGO */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        /* IMAGEN DEL LOGO */
+        .logo-container img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background: rgba(255,255,255,0.3);
+            color: white;
+            box-sizing: border-box;
+        }
+
+        input::placeholder {
+            color: #eee;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            background: #6c63ff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #5848e5;
+        }
+
+        a {
+            display: block;
+            margin-top: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .admin-box {
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .admin-btn {
+            display: inline-block;
+            margin-top: 5px;
+            padding: 8px 12px;
+            background: #6b97c2d1;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .error {
+            margin-top: 10px;
+            color: #ffb3b3;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+    
+    <div class="logo-container">
+        <img src="{% static 'img/logo.png' %}" alt="Logo del sistema">
+    </div>
+
+    <h2>INICIAR SESION</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="input-group">
+            <input type="text" name="username" placeholder="Usuario">
+        </div>
+
+        <div class="input-group">
+            <input type="password" name="password" placeholder="Contraseña">
+        </div>
+
+        <button type="submit">Ingresar</button>
+    </form>
+
+    <a href="{% url 'registro' %}">Registrate</a>
+
+    <a href="{% url 'password_reset' %}">
+    ¿Olvidaste tu contraseña?
+    </a>
+
+    <div class="admin-box">
+        <p>¿Eres administrador?</p>
+
+        <a href="/admin/login/" class="admin-btn">
+            Acceder como administrador
+        </a>
+    </div>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+</div>
+
+</body>
+</html> -->
+
+
+
+
+
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#1900ff,#9e0428);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    position:relative;
+}
+
+/* =========================
+   LOGO DE FONDO
+========================= */
+
+.background-logo{
+    position:absolute;
+    top:55%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:1;
+    pointer-events:none;
+}
+
+.background-logo img{
+    width:1400px;
+    height:auto;
+    opacity:0.55;
+    filter:drop-shadow(0 0 25px rgba(255,255,255,.2));
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-container{
+    position:relative;
+    z-index:2;
+
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(10px);
+
+    width:320px;
+
+    padding:40px 30px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    color:white;
+
+    box-shadow:0 0 25px rgba(0,0,0,.3);
+}
+
+.login-container h2{
+    margin-bottom:25px;
+    font-size:25px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.input-group{
+    margin-bottom:15px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+
+    background:rgba(255,255,255,.25);
+
+    color:white;
+
+    font-size:14px;
+}
+
+input::placeholder{
+    color:#ececec;
+}
+
+button{
+    width:100%;
+    padding:12px;
+
+    border:none;
+    border-radius:10px;
+
+    background:#6c63ff;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    margin-top:10px;
+}
+
+button:hover{
+    background:#5748e4;
+}
+
+a{
+    display:block;
+
+    margin-top:12px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:14px;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+.admin-box{
+    margin-top:20px;
+}
+
+.admin-btn{
+    display:inline-block;
+
+    margin-top:8px;
+
+    padding:10px 15px;
+
+    background:#6b97c2d1;
+
+    border-radius:8px;
+
+    color:white;
+
+    text-decoration:none;
+}
+
+.admin-btn:hover{
+    text-decoration:none;
+    background:#5a87b4;
+}
+
+.error{
+    margin-top:15px;
+    color:#ffd3d3;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="background-logo">
+    <img src="{% static 'img/logo.png' %}" alt="Logo Canal">
+</div>
+
+<div class="login-container">
+
+
+<h2>INICIAR SESIÓN</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <div class="input-group">
+        <input
+            type="text"
+            name="username"
+            placeholder="Usuario">
+    </div>
+
+    <div class="input-group">
+        <input
+            type="password"
+            name="password"
+            placeholder="Contraseña">
+    </div>
+
+    <button type="submit">
+        Ingresar
+    </button>
+
+</form>
+
+<a href="{% url 'registro' %}">
+    Regístrate
+</a>
+
+<a href="{% url 'password_reset' %}">
+    ¿Olvidaste tu contraseña?
+</a>
+
+<div class="admin-box">
+
+    <p>¿Eres administrador?</p>
+
+    <a href="/admin/login/" class="admin-btn">
+        Acceder como administrador
+    </a>
+
+</div>
+
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% endif %}
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Registro</title>
+</head>
+<body>
+
+<h2>Registro de Usuario</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Registrarse</button>
+</form>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Registro de Usuario</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.register-container{
+    width:100%;
+    max-width:550px;
+}
+
+.register-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.card-header{
+    background:linear-gradient(180deg,#0f3598,#133c9f);
+    text-align:center;
+    padding:20px;
+}
+
+.card-header h1{
+    color:white;
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.card-header p{
+    color:rgba(255,255,255,.85);
+    font-size:14px;
+}
+
+.card-body{
+    padding:35px;
+}
+
+.card-body form p{
+    margin-bottom:18px;
+}
+
+.card-body label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:600;
+    color:#444;
+}
+
+.card-body input,
+.card-body select,
+.card-body textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #d8d8d8;
+    border-radius:10px;
+    font-size:14px;
+    transition:.3s;
+}
+
+.card-body input:focus,
+.card-body select:focus,
+.card-body textarea:focus{
+    outline:none;
+    border-color:#163e99;
+    box-shadow:0 0 0 3px rgba(22,62,153,.15);
+}
+
+.btn-register{
+    width:100%;
+    border:none;
+    background:#28a745;
+    color:white;
+    padding:14px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-register:hover{
+    background:#218838;
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    color:#777;
+    font-size:13px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="register-container">
+
+```
+<div class="register-card">
+
+    <div class="card-header">
+        <h1>Registro de Usuario</h1>
+        
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="btn-register">
+                Registrarse
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    © Dev. for Gus
+</div>
+
+
+</div>
+
+</body>
+</html>

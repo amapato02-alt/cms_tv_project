@@ -1,0 +1,233 @@
+<!-- <h2>Subir Video</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div>
+    <label><strong>Tipo de contenido:</strong></label><br><br>
+
+    <input type="checkbox" name="categorias" value="FALSO">
+    <label>Falso</label><br>
+
+    <input type="checkbox" name="categorias" value="NOTA">
+    <label>Nota</label><br>
+
+    <input type="checkbox" name="categorias" value="APOYO">
+    <label>Apoyo</label><br>
+</div>
+
+    <button type="submit">Subir</button>
+</form> -->
+
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Subir Contenido</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.upload-container{
+    width:100%;
+    max-width:700px;
+}
+
+.upload-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.card-header{
+    background:linear-gradient(180deg,#0f3598,#133c9f);
+    text-align:center;
+    padding:20px;
+}
+
+.card-header h1{
+    color:white;
+    font-size:28px;
+}
+
+.card-header p{
+    color:rgba(255,255,255,.85);
+    margin-top:5px;
+    font-size:14px;
+}
+
+.card-body{
+    padding:35px;
+}
+
+.card-body form p{
+    margin-bottom:18px;
+}
+
+.card-body label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:600;
+    color:#444;
+}
+
+.card-body input,
+.card-body select,
+.card-body textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #d8d8d8;
+    border-radius:10px;
+    font-size:14px;
+    transition:.3s;
+}
+
+.card-body input:focus,
+.card-body select:focus,
+.card-body textarea:focus{
+    outline:none;
+    border-color:#163e99;
+    box-shadow:0 0 0 3px rgba(22,62,153,.15);
+}
+
+.category-box{
+    background:#f8f9fc;
+    border:1px solid #e3e6ef;
+    border-radius:12px;
+    padding:15px;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.category-box h3{
+    color:#163e99;
+    margin-bottom:15px;
+    font-size:16px;
+}
+
+.checkbox-item{
+    margin-bottom:10px;
+}
+
+.checkbox-item input{
+    width:auto;
+    margin-right:8px;
+}
+
+.btn-submit{
+    width:100%;
+    border:none;
+    background:#28a745;
+    color:white;
+    padding:14px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-submit:hover{
+    background:#218838;
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    color:#777;
+    font-size:13px;
+}
+
+@media(max-width:768px){
+
+    .card-body{
+        padding:20px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="upload-container">
+
+```
+<div class="upload-card">
+
+    <div class="card-header">
+        <h1>Subir Contenido</h1>
+        
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class="category-box">
+
+                <h3>Tipo de contenido</h3>
+
+                <div class="checkbox-item">
+                    <input type="checkbox" name="categorias" value="FALSO" id="falso">
+                    <label for="falso">Falso</label>
+                </div>
+
+                <div class="checkbox-item">
+                    <input type="checkbox" name="categorias" value="NOTA" id="nota">
+                    <label for="nota">Nota</label>
+                </div>
+
+                <div class="checkbox-item">
+                    <input type="checkbox" name="categorias" value="APOYO" id="apoyo">
+                    <label for="apoyo">Apoyo</label>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn-submit">
+                Subir Contenido
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    © Dev. for Gus
+</div>
+```
+
+</div>
+
+</body>
+</html>

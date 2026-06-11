@@ -1,0 +1,910 @@
+<!-- <a href="/logout/">Cerrar sesión</a>
+<h1>Panel Administrador</h1>
+
+<a href="{% url 'subir_video' %}">
+    <button>Subir contenido</button>
+</a>
+
+<div>
+<form method="GET">
+
+    <input type="text" name="q" placeholder="Buscar por título o descripción">
+
+    <select name="categoria">
+        <option value="">Buscar por Categoria</option>
+        <option value="FALSO">Falso</option>
+        <option value="NOTA">Nota</option>
+        <option value="APOYO">Apoyo</option>
+    </select>
+    
+
+    <input type="date" name="fecha">
+
+    <button type="submit">Buscar</button>
+
+</form>
+
+<a href="{% url 'panel_admin' %}">
+    <button>Volver al Inicio</button>
+    </a>
+
+</div>
+
+<hr>
+
+{% for video in videos %}
+    <div>
+        <h3>{{ video.titulo }}</h3>
+
+        {% if ".mp4" in video.archivo.url %}
+         <video width="320" controls>
+             <source src="{{ video.archivo.url }}">
+         </video>
+        {% else %}
+           <img src="{{ video.archivo.url }}" width="320">
+        {% endif %}
+
+        <p>Categoria: {{ video.categorias }}</p>
+
+        <p>Descripción: {{ video.descripcion }}</p>
+
+        <p>Fecha: {{ video.fecha_subida }}</p>
+
+        <p><strong>Subido por:</strong> {{ video.usuario.username }}</p>
+
+        <a href="{% url 'editar_video' video.id %}">Editar</a>
+        <a href="{% url 'eliminar_video' video.id %}">Eliminar</a>
+    </div>
+{% empty %}
+    <p>No tienes contenido aún.</p>
+{% endfor %} -->
+
+
+
+
+
+
+
+
+
+
+<!-- {% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Administrador</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#333;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(135deg,#0b2a6b,#163e99);
+    padding:20px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 3px 15px rgba(0,0,0,.15);
+}
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-area img{
+    width:80px;
+}
+
+.logo-area h1{
+    color:white;
+    font-size:25px;
+}
+
+.logout{
+    background:#aa3d3b;
+    color:white;
+    text-decoration:none;
+    padding:10px 18px;
+    border-radius:10px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.logout:hover{
+    background:#c62828;
+}
+
+/* PANEL */
+
+.container{
+    width:95%;
+    max-width:1400px;
+    margin:30px auto;
+}
+
+/* BARRA DE ACCIONES */
+
+.top-bar{
+    background:white;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    margin-bottom:30px;
+}
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+}
+
+.actions input,
+.actions select{
+    padding:12px;
+    border:1px solid #d9d9d9;
+    border-radius:10px;
+    min-width:180px;
+}
+
+.btn{
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+    text-decoration:none;
+    display:inline-block;
+}
+
+.btn-primary{
+    background:#163e99;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#0f2d74;
+}
+
+.btn-red{
+    background:#d32f2f;
+    color:white;
+}
+
+.btn-red:hover{
+    background:#b71c1c;
+}
+
+.btn-green{
+    background:#28a745;
+    color:white;
+}
+
+.btn-green:hover{
+    background:#218838;
+}
+
+/* GRID VIDEOS */
+
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(350px,1fr));
+    gap:25px;
+}
+
+/* CARD */
+
+.card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.card-media{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    background:#000;
+}
+
+.card-body{
+    padding:20px;
+}
+
+.card-title{
+    color:#163e99;
+    margin-bottom:10px;
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:50px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.badge-falso{
+    background:#ffebee;
+    color:#c62828;
+}
+
+.badge-nota{
+    background:#e3f2fd;
+    color:#1565c0;
+}
+
+.badge-apoyo{
+    background:#e8f5e9;
+    color:#2e7d32;
+}
+
+.meta{
+    color:#666;
+    font-size:14px;
+    margin-top:10px;
+}
+
+.card-buttons{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+}
+
+.card-buttons a{
+    flex:1;
+    text-align:center;
+}
+
+/* MENSAJE VACIO */
+
+.empty{
+    text-align:center;
+    padding:50px;
+    background:white;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+
+    <div class="logo-area">
+        <img src="{% static 'img/logo.png' %}" alt="Logo Canal">
+        <h1>Panel Administrador</h1>
+    </div>
+
+    <a href="/logout/" class="logout">
+        Cerrar sesión
+    </a>
+
+</header>
+
+<div class="container">
+
+    <div class="top-bar">
+
+        <div style="margin-bottom:15px;">
+            <a href="{% url 'subir_video' %}" class="btn btn-green">
+                + Subir contenido
+            </a>
+        </div>
+
+        <form method="GET" class="actions">
+
+            <input
+                type="text"
+                name="q"
+                placeholder="Buscar por título o descripción">
+
+            <select name="categoria">
+                <option value="">Todas las categorías</option>
+                <option value="FALSO">Falso</option>
+                <option value="NOTA">Nota</option>
+                <option value="APOYO">Apoyo</option>
+            </select>
+
+            <input type="date" name="fecha">
+
+            <button type="submit" class="btn btn-primary">
+                Buscar
+            </button>
+
+            <a href="{% url 'panel_admin' %}" class="btn btn-red">
+                Volver al inicio
+            </a>
+
+        </form>
+
+    </div>
+
+    <div class="video-grid">
+
+        {% for video in videos %}
+
+        <div class="card">
+
+            {% if ".mp4" in video.archivo.url %}
+                <video controls class="card-media">
+                    <source src="{{ video.archivo.url }}">
+                </video>
+            {% else %}
+                <img src="{{ video.archivo.url }}"
+                     class="card-media"
+                     alt="{{ video.titulo }}">
+            {% endif %}
+
+            <div class="card-body">
+
+                <h3 class="card-title">
+                    {{ video.titulo }}
+                </h3>
+
+                {% if video.categorias == "FALSO" %}
+                    <span class="badge badge-falso">
+                        {{ video.categorias }}
+                    </span>
+                {% elif video.categorias == "NOTA" %}
+                    <span class="badge badge-nota">
+                        {{ video.categorias }}
+                    </span>
+                {% else %}
+                    <span class="badge badge-apoyo">
+                        {{ video.categorias }}
+                    </span>
+                {% endif %}
+
+                <p>{{ video.descripcion }}</p>
+
+                <div class="meta">
+                    <p><strong>Fecha:</strong> {{ video.fecha_subida }}</p>
+                    <p><strong>Subido por:</strong> {{ video.usuario.username }}</p>
+                </div>
+
+                <div class="card-buttons">
+
+                    <a href="{% url 'editar_video' video.id %}"
+                       class="btn btn-primary">
+                        Editar
+                    </a>
+
+                    <a href="{% url 'eliminar_video' video.id %}"
+                       class="btn btn-red">
+                        Eliminar
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="empty">
+            <h2>No tienes contenido aún</h2>
+            <p>Sube tu primer contenido para comenzar.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Panel Administrador</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#333;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    height: 110px;
+    background:linear-gradient(135deg,#0b2a6b,#051846);
+    padding:10px 35px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 3px 15px rgba(0,0,0,.15);
+}
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.logo-area img{
+    width:150px;
+    height:auto;
+}
+
+.logo-text h1{
+    color:white;
+    font-size:25px;
+    font-weight:700;
+    margin:0;
+}
+
+.logo-text p{
+    color:rgba(255,255,255,.85);
+    font-size:13px;
+}
+
+.logout{
+    background:#e53935;
+    color:white;
+    text-decoration:none;
+    padding:10px 18px;
+    border-radius:10px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.logout:hover{
+    background:#c62828;
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.container{
+    width:98%;
+    max-width:1900px;
+    margin:20px auto;
+}
+
+/* =========================
+   BARRA DE HERRAMIENTAS
+========================= */
+
+.top-bar{
+    background:white;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    margin-bottom:25px;
+}
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+}
+
+.actions input,
+.actions select{
+    padding:12px;
+    border:1px solid #d9d9d9;
+    border-radius:10px;
+    min-width:180px;
+}
+
+.btn{
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+    text-decoration:none;
+    display:inline-block;
+}
+
+.btn-primary{
+    background:#163e99;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#0f2d74;
+}
+
+.btn-red{
+    background:#d32f2f;
+    color:white;
+}
+
+.btn-red:hover{
+    background:#b71c1c;
+}
+
+.btn-green{
+    background:#28a745;
+    color:white;
+}
+
+.btn-green:hover{
+    background:#218838;
+}
+
+/* =========================
+   GRID MULTIMEDIA
+========================= */
+
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:20px;
+}
+
+/* =========================
+   TARJETAS
+========================= */
+
+.card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.card-media{
+    width:100%;
+    aspect-ratio:16/9;
+    object-fit:contain;
+    background:#000;
+    display:block;
+}
+
+.card-body{
+    padding:15px;
+}
+
+.card-title{
+    color:#163e99;
+    margin-bottom:10px;
+    font-size:22px;
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:50px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.badge-falso{
+    background:#ffebee;
+    color:#c62828;
+}
+
+.badge-nota{
+    background:#e3f2fd;
+    color:#1565c0;
+}
+
+.badge-apoyo{
+    background:#e8f5e9;
+    color:#2e7d32;
+}
+
+.meta{
+    color:#666;
+    font-size:13px;
+    margin-top:10px;
+}
+
+.card-buttons{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+}
+
+.card-buttons a{
+    flex:1;
+    text-align:center;
+}
+
+/* =========================
+   MENSAJE VACÍO
+========================= */
+
+.empty{
+    text-align:center;
+    padding:60px;
+    background:white;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width:1600px){
+
+    .video-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+}
+
+@media (max-width:1200px){
+
+    .video-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media (max-width:900px){
+
+    .video-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media (max-width:600px){
+
+    .video-grid{
+        grid-template-columns:1fr;
+    }
+
+    .header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo-area">
+
+        <img src="{% static 'img/logo.png' %}" alt="Logo Canal">
+
+        <div class="logo-text">
+            <h1>PANEL DE ADMINISTRACIÓN MULTIMEDIA</h1>
+            
+        </div>
+
+    </div>
+
+    <a href="/logout/" class="logout">
+        Cerrar sesión
+    </a>
+
+</header>
+
+<div class="container">
+
+    <div class="top-bar">
+
+        <div style="margin-bottom:15px;">
+
+            <a href="{% url 'subir_video' %}" class="btn btn-green">
+                + Subir contenido
+            </a>
+
+        </div>
+
+        <form method="GET" class="actions">
+
+            <input
+                type="text"
+                name="q"
+                placeholder="Buscar por título o descripción">
+
+            <select name="categoria">
+                <option value="">Todas las categorías</option>
+                <option value="FALSO">FALSO</option>
+                <option value="NOTA">NOTA</option>
+                <option value="APOYO">APOYO</option>
+            </select>
+
+            <input type="date" name="fecha">
+
+            <button type="submit" class="btn btn-primary">
+                Buscar
+            </button>
+
+            <a href="{% url 'panel_admin' %}" class="btn btn-red">
+                Volver al inicio
+            </a>
+
+        </form>
+
+    </div>
+
+    <div class="video-grid">
+
+        {% for video in videos %}
+
+        <div class="card">
+
+            {% if ".mp4" in video.archivo.url %}
+
+                <video controls class="card-media">
+                    <source src="{{ video.archivo.url }}">
+                </video>
+
+            {% else %}
+
+                <img
+                    src="{{ video.archivo.url }}"
+                    alt="{{ video.titulo }}"
+                    class="card-media">
+
+            {% endif %}
+
+            <div class="card-body">
+
+                <h3 class="card-title">
+                    {{ video.titulo }}
+                </h3>
+
+                {% if video.categorias == "FALSO" %}
+
+                    <span class="badge badge-falso">
+                        {{ video.categorias }}
+                    </span>
+
+                {% elif video.categorias == "NOTA" %}
+
+                    <span class="badge badge-nota">
+                        {{ video.categorias }}
+                    </span>
+
+                {% else %}
+
+                    <span class="badge badge-apoyo">
+                        {{ video.categorias }}
+                    </span>
+
+                {% endif %}
+
+                <p>{{ video.descripcion }}</p>
+
+                <div class="meta">
+
+                    <p>
+                        <strong>Fecha:</strong>
+                        {{ video.fecha_subida }}
+                    </p>
+
+                    <p>
+                        <strong>Subido por:</strong>
+                        {{ video.usuario.username }}
+                    </p>
+
+                </div>
+
+                <div class="card-buttons">
+
+                    <a
+                        href="{% url 'editar_video' video.id %}"
+                        class="btn btn-primary">
+
+                        Editar
+
+                    </a>
+
+                    <a
+                        href="{% url 'eliminar_video' video.id %}"
+                        class="btn btn-red">
+
+                        Eliminar
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="empty">
+
+            <h2>No existe contenido multimedia</h2>
+
+            <p>
+                Sube tu primer video o imagen para comenzar.
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,29 @@
+<h2>Videos</h2>
+
+
+{% for video in videos %}
+<div style="border:1px solid #ccc; padding:15px; margin:15px; border-radius:10px;">
+
+    <h3>{{ video.titulo }}</h3>
+
+    {% if video.tipo == 'video' %}
+    <video width="400" controls preload="metadata">
+        <source src="{{ video.archivo.url }}">
+    </video>
+
+    {% elif video.tipo == 'imagen' %}
+    <img src="{{ video.archivo.url }}" width="500" style="border-radius:10px;">
+
+    {% else %}
+    <p>Archivo no soportado</p>
+    {% endif %}
+
+    <p>{{ video.descripcion }}</p>
+
+    <p><strong>Subido por:</strong> {{ video.usuario.username }}</p>
+
+    <a href="{% url 'editar_video' video.id %}">✏️ Editar</a>
+    <a href="{% url 'eliminar_video' video.id %}">🗑️ Eliminar</a>
+
+</div>
+{% endfor %}
